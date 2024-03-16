@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -18,25 +20,28 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-   getName() async {
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  getName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //Return String
     String? username = prefs.getString('name');
     return username;
   }
-    getemail() async {
+
+  getemail() async {
     SharedPreferences prefs2 = await SharedPreferences.getInstance();
     //Return String
     String? email = prefs2.getString('email');
     return email;
   }
-   late String _username = 'User';
-   late String _email = '<EMAIL>';
-   @override
+
+  late String _username = 'User';
+  late String _email = '<EMAIL>';
+  @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: _query)..addListener(_onqueryChanged);
+    _controller = TextEditingController(text: _query)
+      ..addListener(_onqueryChanged);
     _focusNode = FocusNode();
     getName().then((username) {
       setState(() {
@@ -55,7 +60,6 @@ class _HomeState extends State<Home> {
   late final FocusNode _focusNode;
   String _query = '';
 
-
   @override
   void dispose() {
     _controller.dispose();
@@ -72,79 +76,85 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
-        if(!currentFocus.hasPrimaryFocus){
+        if (!currentFocus.hasPrimaryFocus) {
           currentFocus.unfocus();
         }
       },
       child: Scaffold(
         key: _scaffoldKey,
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Text('FoodByte',style: TextStyle(color: Colors.white),),
-            SizedBox(width: 8,),
-            // Text(_username),
-          ],
-        ),
-          leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () {
-            _scaffoldKey.currentState?.openDrawer();
-          },
-        ),
-      ),
-      drawer: Drawer(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        UserAccountsDrawerHeader(
-          decoration: BoxDecoration(color: Colors.blue),
-          currentAccountPicture: CircleAvatar(
-            backgroundColor: Colors.white,
-            child: Icon(Ionicons.person)
+        appBar: AppBar(
+          title: Row(
+            children: [
+              Text(
+                'FoodByte',
+                style: TextStyle(color: Colors.white),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              // Text(_username),
+            ],
           ),
-          accountName: Text(_username),
-          accountEmail: Text(_email),
-        ),
-        ListTile(
-          leading: Icon(Icons.settings),
-          title: Text('Settings'),
-          subtitle: Text('Manage your app settings'),
-          trailing: Icon(Icons.arrow_forward_ios),
-          onTap: () {
-            // Navigate to the settings page.
-          },
-        ),
-        ListTile(
-          leading: Icon(Icons.help),
-          title: Text('Help'),
-          subtitle: Text('Get help and support'),
-          trailing: Icon(Icons.arrow_forward_ios),
-          onTap: () {
-            // Navigate to the help page.
-          },
-        ),
-         ListTile(
-          leading: Icon(Icons.exit_to_app),
-            onTap: () async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              SharedPreferences prefs2 = await SharedPreferences.getInstance();
-              prefs.remove('name');
-              prefs2.remove('email');
-              Navigator.pushReplacementNamed(context, '/');
+          leading: IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {
+              _scaffoldKey.currentState?.openDrawer();
             },
-          title: Text('Exit'),
-          subtitle: Text('Signout'),
-          trailing: Icon(Icons.arrow_forward_ios),
-          onLongPress: () {
-            // Navigate to the help page.
-          },
+          ),
         ),
-      ],
-    ),
-  ),
+        drawer: Drawer(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              UserAccountsDrawerHeader(
+                decoration: BoxDecoration(color: Colors.blue),
+                currentAccountPicture: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: Icon(Ionicons.person)),
+                accountName: Text(_username),
+                accountEmail: Text(_email),
+              ),
+              ListTile(
+                leading: Icon(Icons.settings),
+                title: Text('Settings'),
+                subtitle: Text('Manage your app settings'),
+                trailing: Icon(Icons.arrow_forward_ios),
+                onTap: () {
+                  // Navigate to the settings page.
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.help),
+                title: Text('Help'),
+                subtitle: Text('Get help and support'),
+                trailing: Icon(Icons.arrow_forward_ios),
+                onTap: () {
+                  // Navigate to the help page.
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.exit_to_app),
+                onTap: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  SharedPreferences prefs2 =
+                      await SharedPreferences.getInstance();
+                  prefs.remove('name');
+                  prefs2.remove('email');
+                  Navigator.pushReplacementNamed(context, '/');
+                },
+                title: Text('Exit'),
+                subtitle: Text('Signout'),
+                trailing: Icon(Icons.arrow_forward_ios),
+                onLongPress: () {
+                  // Navigate to the help page.
+                },
+              ),
+            ],
+          ),
+        ),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
           child: ListView(
@@ -238,9 +248,7 @@ class _HomeState extends State<Home> {
 
   buildSearchBar(BuildContext context) {
     return Container(
-        margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
-        child: SearchCard()
-    );
+        margin: EdgeInsets.fromLTRB(10, 5, 10, 0), child: SearchCard());
   }
 
   buildCategoryList(BuildContext context) {
@@ -280,7 +288,8 @@ class _HomeState extends State<Home> {
               img: restaurant["img"],
               title: restaurant["title"],
               address: restaurant["address"],
-              rating: restaurant["rating"], key: UniqueKey(),
+              rating: restaurant["rating"],
+              key: UniqueKey(),
             ),
           );
         },
