@@ -1,14 +1,13 @@
-// ignore_for_file: unused_import
-
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_foodybite/screens/achivements.dart';
 import 'package:flutter_foodybite/screens/categories.dart';
 import 'package:flutter_foodybite/screens/trending.dart';
 import 'package:flutter_foodybite/util/categories.dart';
 import 'package:flutter_foodybite/util/friends.dart';
 import 'package:flutter_foodybite/util/restaurants.dart';
 import 'package:flutter_foodybite/widgets/category_item.dart';
+import 'package:flutter_foodybite/widgets/circle_indicator.dart'; // Assuming you have CircleIndicator widget
 import 'package:flutter_foodybite/widgets/search_card.dart';
 import 'package:flutter_foodybite/widgets/slide_item.dart';
 import 'package:ionicons/ionicons.dart';
@@ -21,28 +20,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  getName() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    //Return String
-    String? username = prefs.getString('name');
-    return username;
-  }
-
-  getemail() async {
-    SharedPreferences prefs2 = await SharedPreferences.getInstance();
-    //Return String
-    String? email = prefs2.getString('email');
-    return email;
-  }
-
   late String _username = 'User';
   late String _email = '<EMAIL>';
+
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: _query)
-      ..addListener(_onqueryChanged);
-    _focusNode = FocusNode();
     getName().then((username) {
       setState(() {
         _username = username ?? 'User';
@@ -51,26 +34,18 @@ class _HomeState extends State<Home> {
     getemail().then((email) {
       setState(() {
         _email = email ?? '<EMAIL>';
-        print("Retrieved email:$_email");
       });
     });
   }
 
-  late final TextEditingController _controller;
-  late final FocusNode _focusNode;
-  String _query = '';
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    _focusNode.dispose();
-    super.dispose();
+  getName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('name');
   }
 
-  void _onqueryChanged() {
-    setState(() {
-      _query = _controller.text;
-    });
+  getemail() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('email');
   }
 
   @override
@@ -88,13 +63,11 @@ class _HomeState extends State<Home> {
           title: Row(
             children: [
               Text(
-                'FoodByte',
+                'CarPool',
                 style: TextStyle(color: Colors.white),
               ),
-              SizedBox(
-                width: 8,
-              ),
-              // Text(_username),
+              SizedBox(width: 8),
+              Text(_username),
             ],
           ),
           leading: IconButton(
@@ -161,11 +134,16 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               buildSearchBar(context),
               SizedBox(height: 20.0),
-              buildRestaurantRow('Trending Restaurants', context),
+              Text(
+                "Performace",
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              Savings(),
               SizedBox(height: 10.0),
-              buildRestaurantList(context),
-              SizedBox(height: 10.0),
-              buildCategoryRow('Category', context),
+              buildCategoryRow('Achievements', context),
               SizedBox(height: 10.0),
               buildCategoryList(context),
               SizedBox(height: 20.0),
@@ -180,40 +158,14 @@ class _HomeState extends State<Home> {
     );
   }
 
-  buildRestaurantRow(String restaurant, BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Text(
-          "$restaurant",
-          style: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-        TextButton(
-          child: Text(
-            "See all (9)",
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-          ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return Trending();
-                },
-              ),
-            );
-          },
-        ),
-      ],
+  Widget buildSearchBar(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
+      child: SearchCard(),
     );
   }
 
-  buildCategoryRow(String category, BuildContext context) {
+  Widget buildCategoryRow(String category, BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
@@ -236,7 +188,7 @@ class _HomeState extends State<Home> {
               context,
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return Categories();
+                  return AchievementsPage();
                 },
               ),
             );
@@ -246,21 +198,16 @@ class _HomeState extends State<Home> {
     );
   }
 
-  buildSearchBar(BuildContext context) {
-    return Container(
-        margin: EdgeInsets.fromLTRB(10, 5, 10, 0), child: SearchCard());
-  }
-
-  buildCategoryList(BuildContext context) {
+  Widget buildCategoryList(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height / 6,
       child: ListView.builder(
         primary: false,
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
-        itemCount: categories == 0 ? 0 : categories.length,
+        itemCount: achievements.length,
         itemBuilder: (BuildContext context, int index) {
-          Map cat = categories[index];
+          Map cat = achievements[index];
 
           return CategoryItem(
             cat: cat,
@@ -270,55 +217,49 @@ class _HomeState extends State<Home> {
     );
   }
 
-  buildRestaurantList(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height / 2.4,
-      width: MediaQuery.of(context).size.width,
-      child: ListView.builder(
-        primary: false,
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        itemCount: restaurants == 0 ? 0 : restaurants.length,
-        itemBuilder: (BuildContext context, int index) {
-          Map restaurant = restaurants[index];
-
-          return Padding(
-            padding: const EdgeInsets.only(right: 10.0),
-            child: SlideItem(
-              img: restaurant["img"],
-              title: restaurant["title"],
-              address: restaurant["address"],
-              rating: restaurant["rating"],
-              key: UniqueKey(),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  buildFriendsList() {
+  Widget buildFriendsList() {
     return Container(
       height: 50.0,
       child: ListView.builder(
         primary: false,
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
-        itemCount: friends == 0 ? 0 : friends.length,
+        itemCount: friends.length,
         itemBuilder: (BuildContext context, int index) {
           String img = friends[index];
 
           return Padding(
             padding: const EdgeInsets.only(right: 5.0),
             child: CircleAvatar(
-              backgroundImage: AssetImage(
-                img,
-              ),
+              backgroundImage: AssetImage(img),
               radius: 25.0,
             ),
           );
         },
       ),
+    );
+  }
+}
+
+class Savings extends StatelessWidget {
+  const Savings({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Column(
+          children: [
+            // Your Savings Widget Content
+          ],
+        ),
+        SizedBox(width: 20), // Adding space between the two circles
+        Column(
+          children: [
+            // Your Savings Widget Content
+          ],
+        ),
+      ],
     );
   }
 }
