@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_foodybite/screens/achivements.dart';
 import 'package:flutter_foodybite/screens/categories.dart';
 import 'package:flutter_foodybite/screens/trending.dart';
@@ -143,6 +142,8 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Savings(),
+              SizedBox(height: 30,),
+              pools(),
               SizedBox(height: 10.0),
               buildCategoryRow('Achievements', context),
               SizedBox(height: 10.0),
@@ -237,6 +238,52 @@ class _HomeState extends State<Home> {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class pools extends StatelessWidget {
+  const pools({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.green), // Border color
+        borderRadius: BorderRadius.circular(8), // Rounded corners
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Column(
+            children: [
+              Icon(Icons.directions_car), // Car icon
+              SizedBox(height: 5),
+              Text('My Car'), // Text below the car icon
+            ],
+          ),
+          VerticalDivider(), // Divider line
+          Column(
+            children: [
+              Row(
+                children: [
+    Container(
+      height: 30,
+      width: 30,
+      child: Icon(Icons.directions_car), // Car icon
+    ),
+    SizedBox(width: 5),
+    Text('Ride Along'), // Text beside the car icon
+                ],
+              ),
+              SizedBox(height: 5),
+            ],
+          ),
+        ],
       ),
     );
   }

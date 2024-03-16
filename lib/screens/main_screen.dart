@@ -3,6 +3,7 @@ import 'package:flutter_foodybite/screens/add.dart';
 import 'package:flutter_foodybite/screens/home.dart';
 import 'package:flutter_foodybite/screens/label.dart';
 import 'package:flutter_foodybite/screens/profile.dart';
+import 'package:ionicons/ionicons.dart';
 
 import 'notifications.dart';
 
@@ -18,20 +19,18 @@ class _MainScreenState extends State<MainScreen> {
 
   List icons = [
     Icons.home,
-    Icons.label,
+    Icons.map_sharp,
     Icons.add,
     Icons.notifications,
     Icons.person,
   ];
-
   List pages = [
     Home(),
-    Label(key: UniqueKey(),),
+    Label(),
     Add(key: UniqueKey(),),
     Notifications(key: UniqueKey(),),
     Profile(key: UniqueKey(),),
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
