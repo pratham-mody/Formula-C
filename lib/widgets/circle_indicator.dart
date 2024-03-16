@@ -38,7 +38,7 @@ class CircleIndicator extends StatelessWidget {
                   ),
                   // Green portion
                   RangePointer(
-                    value: 45,
+                    value: 25,
                     width: 0.1,
                     sizeUnit: GaugeSizeUnit.factor,
                     cornerStyle: CornerStyle.bothCurve,

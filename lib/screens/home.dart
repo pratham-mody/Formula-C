@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_foodybite/screens/achivements.dart';
 import 'package:flutter_foodybite/screens/categories.dart';
 import 'package:flutter_foodybite/screens/trending.dart';
 import 'package:flutter_foodybite/util/categories.dart';
@@ -62,39 +63,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // buildRestaurantRow(String restaurant, BuildContext context) {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //     children: <Widget>[
-  //       Text(
-  //         "$restaurant",
-  //         style: TextStyle(
-  //           fontSize: 20.0,
-  //           fontWeight: FontWeight.w800,
-  //         ),
-  //       ),
-  //       // TextButton(
-  //       //   child: Text(
-  //       //     "See all (9)",
-  //       //     style: TextStyle(
-  //       //       color: Theme.of(context).colorScheme.secondary,
-  //       //     ),
-  //       //   ),
-  //       //   onPressed: () {
-  //       //     Navigator.push(
-  //       //       context,
-  //       //       MaterialPageRoute(
-  //       //         builder: (BuildContext context) {
-  //       //           return Trending();
-  //       //         },
-  //       //       ),
-  //       //     );
-  //       //   },
-  //       // ),
-  //     ],
-  //   );
-  // }
-
+  
   buildCategoryRow(String category, BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -118,7 +87,7 @@ class _HomeState extends State<Home> {
               context,
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return Categories();
+                  return AchievementsPage();
                 },
               ),
             );
@@ -142,9 +111,9 @@ class _HomeState extends State<Home> {
         primary: false,
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
-        itemCount: categories == 0 ? 0 : categories.length,
+        itemCount: achievements == 0 ? 0 : achievements.length,
         itemBuilder: (BuildContext context, int index) {
-          Map cat = categories[index];
+          Map cat = achievements[index];
 
           return CategoryItem(
             cat: cat,
@@ -294,95 +263,7 @@ class _HomeState extends State<Home> {
             fontWeight: FontWeight.w800,
           ),
         ),
-           Row(
-          children: [
-                        Column(
-                          children: [
-                            Container(
-                              height: 100,
-                              width: 200,
-                              child: CircleIndicator(),
-                            ),
-                            SizedBox(height: 10), // Adding some space between the chart and the text
-                            Text(
-                              'Emissions Saved',
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                        SizedBox(width: 20), // Adding space between the two circles
-                        Stack(
-                          children: [
-                              Column(
-                      children: [
-                        Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: Colors.green, width: 2), // Green border
-                          ),
-                          child: Center(
-                            child: Text(
-                              '70', // Your price value here
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.green, // Color of the text
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10), // Adding some spacing between the circle and the text
-                        Text(
-                          'Money Saved',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
-                        ),
-                      ],
-                    )
-                      
-                          ],
-                        ),
-                  ],
-),
-              SizedBox(height: 50.0),
-              Container(
-                // height: 100,
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.green), // Border color
-                  borderRadius: BorderRadius.circular(10), // Rounded corners
-                ),
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    children: [
-      Column(
-        children: [
-          Icon(Ionicons.car_sport), // Car icon
-          SizedBox(height: 5),
-          Text('My Car'), // Text below the car icon
-        ],
-      ),
-      VerticalDivider(), // Divider line
-      Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                height: 30,
-                width: 30,
-                child: Icon(Icons.directions_car), // Car icon
-              ),
-              SizedBox(width: 5),
-              Text('Ride Along'), // Text beside the car icon
-            ],
-          ),
-          SizedBox(height: 5),       
-        ],
-      ),
-    ],
-  ),
-),
+     Savings(),
 
               // buildRestaurantList(context),
               SizedBox(height: 10.0),
@@ -398,6 +279,86 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class Savings extends StatelessWidget {
+  const Savings({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Column(
+     children: [
+   Stack(
+  alignment: Alignment.center, // Align content in the center of the stack
+  children: [
+    Container(
+      height: 100,
+      width: 200,
+      child: CircleIndicator(),
+    ),
+    Positioned(
+      bottom: 10, // Adjust bottom position to position the leaf icon below the graph
+      child: Transform.rotate(
+        angle:-0.10,
+        child: Icon(
+          Ionicons.leaf, // Leaf icon
+          size: 30, // Adjust size as needed
+          color: Colors.green,
+        ),
+      ),
+    ),
+
+  ],
+),
+
+
+       SizedBox(height: 10), // Adding some space between the chart and the text
+       Text(
+         'Emissions Saved',
+         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+       ),
+     ],
+        ),
+        SizedBox(width: 20), // Adding space between the two circles
+        Column(
+     children: [
+       Container(
+         height: 100,
+         width: 100,
+         decoration: BoxDecoration(
+           shape: BoxShape.circle,
+           border: Border.all(color: Colors.green, width: 2), // Green border
+         ),
+         child: Center(
+           child: Row(
+             mainAxisAlignment: MainAxisAlignment.center,
+             children: [
+               Text(
+                 '\$', // Dollar sign
+                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
+               ),
+               Text(
+                 '70', // Your price value here
+                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
+               ),
+             ],
+           ),
+         ),
+       ),
+       SizedBox(height: 10), // Adding some spacing between the circle and the text
+       Text(
+         'Money Saved',
+         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+       ),
+     ],
+        ),
+      ],
     );
   }
 }

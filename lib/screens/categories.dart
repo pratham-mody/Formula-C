@@ -16,7 +16,7 @@ class _CategoriesState extends State<Categories> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        title: Text('Categories',style: TextStyle(color: Colors.white),),
+        title: Text('Achievements',style: TextStyle(color: Colors.white),),
         centerTitle: true,
       ),
       body: Padding(
@@ -26,9 +26,9 @@ class _CategoriesState extends State<Categories> {
         child: GridView.count(
           crossAxisCount: 2,
           children: List.generate(
-            categories.length,
+            achievements.length,
             (index) {
-              var cat = categories[index];
+              var cat = achievements[index];
               return Container(
                 padding: EdgeInsets.all(8.0),
                 child: ClipRRect(
@@ -63,10 +63,6 @@ class _CategoriesState extends State<Categories> {
                           height: MediaQuery.of(context).size.height,
                           width: MediaQuery.of(context).size.height,
                           padding: const EdgeInsets.all(1),
-                          // constraints: BoxConstraints(
-                          //   minWidth: 20,
-                          //   minHeight: 20,
-                          // ),
                           child: Center(
                             child: GestureDetector(
                               onTap:(){

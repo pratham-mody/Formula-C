@@ -5,7 +5,7 @@ class PaymentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Payment Options'),
+        title: Text('Payment Options',style: TextStyle(color: Colors.white),),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20.0),
