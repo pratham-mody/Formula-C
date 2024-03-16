@@ -3,6 +3,8 @@
         android:label="formulac"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.AIzaSyCiK_BbIXq8mIXdqaAPxf4WG9LwM2_CYkk"
+               android:value="AIzaSyCiK_BbIXq8mIXdqaAPxf4WG9LwM2_CYkk"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
