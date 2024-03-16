@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # flutter_application_1
+=======
+# formulac
+>>>>>>> 3bc062bc82ccc156563530099e4cb58fad741206
 
 A new Flutter project.
 

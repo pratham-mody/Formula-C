@@ -14,7 +14,11 @@ description: A new Flutter application.
 version: 1.0.0+1
 
 environment:
+<<<<<<< HEAD
   sdk: '>=3.3.1 <4.0.0'
+=======
+  sdk: ">=3.3.1 <4.0.0"
+>>>>>>> 3bc062bc82ccc156563530099e4cb58fad741206
 
 dependencies:
   cupertino_icons: ^1.0.6

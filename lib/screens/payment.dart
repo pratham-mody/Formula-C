@@ -1,9 +1,7 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-=======
-import 'payment_page.dart'; // Import the PaymentPage class
-import 'help_page.dart';
->>>>>>> 3bc062bc82ccc156563530099e4cb58fad741206
+import 'payment.dart'; // Import the PaymentPage class
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
@@ -12,71 +10,6 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-<<<<<<< HEAD
-        title: Text('Profile',style: TextStyle(color: Colors.white),),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            CircleAvatar(
-              radius: 50,
-              backgroundImage: AssetImage('assets/images/profile_image.jpg'),
-            ),
-            SizedBox(height: 16),
-            Text(
-              'John Doe',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'johndoe@example.com',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[600],
-              ),
-            ),
-            SizedBox(height: 24),
-            Text(
-              'Name',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'John Doe',
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
-            SizedBox(height: 16),
-            Text(
-              'Email',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'johndoe@example.com',
-              style: TextStyle(
-                fontSize: 1,
-              )
-            ),
-          ]
-        ),
-      )
-      );
-  }
-}
-=======
         backgroundColor: Colors.black,
         title: Text('Profile', style: TextStyle(color: Colors.white)),
         actions: [
@@ -135,12 +68,8 @@ class Profile extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _buildProfileTile(
-                      context, Icons.help_outline, 'Help', HelpPage()),
                   _buildProfileTile(context, Icons.payment_outlined, 'Payment',
                       PaymentPage()),
-                  _buildProfileTile(context, Icons.account_circle_outlined,
-                      'Account', AccountPage()),
                 ],
               ),
             ),
@@ -279,32 +208,3 @@ class Profile extends StatelessWidget {
     );
   }
 }
-
-class HelpPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Help Page'),
-      ),
-      body: Center(
-        child: Text('This is the help page.'),
-      ),
-    );
-  }
-}
-
-class AccountPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Account Page'),
-      ),
-      body: Center(
-        child: Text('This is the account page.'),
-      ),
-    );
-  }
-}
->>>>>>> 3bc062bc82ccc156563530099e4cb58fad741206

@@ -23,7 +23,11 @@ if (flutterVersionName == null) {
 }
 
 android {
+<<<<<<< HEAD
     namespace "com.example.flutter_application_1"
+=======
+    namespace "com.example.formulac"
+>>>>>>> 3bc062bc82ccc156563530099e4cb58fad741206
     compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
@@ -42,7 +46,11 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+<<<<<<< HEAD
         applicationId "com.example.flutter_application_1"
+=======
+        applicationId "com.example.formulac"
+>>>>>>> 3bc062bc82ccc156563530099e4cb58fad741206
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion flutter.minSdkVersion

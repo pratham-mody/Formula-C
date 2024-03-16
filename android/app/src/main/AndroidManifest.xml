@@ -1,6 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
+<<<<<<< HEAD
         android:label="flutter_application_1"
+=======
+        android:label="formulac"
+>>>>>>> 3bc062bc82ccc156563530099e4cb58fad741206
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
