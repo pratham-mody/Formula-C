@@ -20,6 +20,8 @@ dependencies:
   cupertino_icons: ^1.0.6
   flutter:
     sdk: flutter
+
+  google_maps_flutter: ^2.6.0
   ionicons: ^0.2.2
   shared_preferences: ^2.2.2
   syncfusion_flutter_gauges: ^25.1.35

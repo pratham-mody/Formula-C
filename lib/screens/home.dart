@@ -340,11 +340,11 @@ class Savings extends StatelessWidget {
              mainAxisAlignment: MainAxisAlignment.center,
              children: [
                Text(
-                 '\$', // Dollar sign
+                 '\₹', 
                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
                ),
                Text(
-                 '70', // Your price value here
+                 '300', // Your price value here
                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
                ),
              ],
