@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'payment_page.dart'; // Import the PaymentPage class
-import 'help_page.dart';
+import 'package:flutter_foodybite/screens/accountpage.dart';
+import 'package:flutter_foodybite/screens/payment_page.dart';
+import 'package:flutter_foodybite/screens/help_page.dart';
+import 'package:flutter_foodybite/screens/settings_page.dart';
+import 'package:flutter_foodybite/screens/language_page.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
@@ -14,7 +17,11 @@ class Profile extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              // Add action for settings button
+              // Navigate to SettingsPage when settings icon is pressed
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SettingsPage()),
+              );
             },
             icon: Icon(Icons.settings),
           ),
@@ -83,9 +90,8 @@ class Profile extends StatelessWidget {
             SizedBox(height: 20),
             _buildBlankBox('Blank 2'),
             SizedBox(height: 20),
-            _buildFeatureTile(Icons.settings, 'Settings'),
-            _buildFeatureTile(Icons.security, 'Security'),
-            _buildFeatureTile(Icons.language, 'Language'),
+            _buildFeatureTile(
+                context, Icons.language, 'Language', LanguagePage()),
             SizedBox(height: 20),
           ],
         ),
@@ -186,7 +192,8 @@ class Profile extends StatelessWidget {
     );
   }
 
-  Widget _buildFeatureTile(IconData icon, String title) {
+  Widget _buildFeatureTile(
+      BuildContext context, IconData icon, String title, Widget page) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20),
       padding: EdgeInsets.all(20),
@@ -194,47 +201,27 @@ class Profile extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         color: Colors.black,
       ),
-      child: Row(
-        children: [
-          Icon(icon, size: 30, color: Colors.white),
-          SizedBox(width: 10),
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => page),
+          );
+        },
+        child: Row(
+          children: [
+            Icon(icon, size: 30, color: Colors.white),
+            SizedBox(width: 10),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class HelpPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Help Page'),
-      ),
-      body: Center(
-        child: Text('This is the help page.'),
-      ),
-    );
-  }
-}
-
-class AccountPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Account Page'),
-      ),
-      body: Center(
-        child: Text('This is the account page.'),
+          ],
+        ),
       ),
     );
   }
