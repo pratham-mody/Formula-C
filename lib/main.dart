@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_foodybite/screens/Signup.dart';
+import 'package:flutter_foodybite/screens/achivements.dart';
 import 'package:flutter_foodybite/screens/home.dart';
 import 'package:flutter_foodybite/screens/main_screen.dart';
 //import 'package:flutter_foodybite/screens/maps_screen.dart';
@@ -29,7 +30,7 @@ class _MyAppState extends State<MyApp> {
       title: Constants.appName,
       theme: Constants.lightTheme,
       darkTheme: Constants.darkTheme,
-      home: MainScreen(),
+      home: SignUpPage(),
       routes: {'/home': (context) => MainScreen()},
     );
   }
