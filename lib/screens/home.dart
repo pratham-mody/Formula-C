@@ -142,6 +142,8 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Savings(),
+              SizedBox(height: 30,),
+              pools(),
               SizedBox(height: 10.0),
               buildCategoryRow('Achievements', context),
               SizedBox(height: 10.0),
@@ -241,18 +243,80 @@ class _HomeState extends State<Home> {
   }
 }
 
+class pools extends StatelessWidget {
+  const pools({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.green), // Border color
+        borderRadius: BorderRadius.circular(8), // Rounded corners
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Column(
+            children: [
+              Icon(Icons.directions_car), // Car icon
+              SizedBox(height: 5),
+              Text('My Car'), // Text below the car icon
+            ],
+          ),
+          VerticalDivider(), // Divider line
+          Column(
+            children: [
+              Row(
+                children: [
+    Container(
+      height: 30,
+      width: 30,
+      child: Icon(Icons.directions_car), // Car icon
+    ),
+    SizedBox(width: 5),
+    Text('Ride Along'), // Text beside the car icon
+                ],
+              ),
+              SizedBox(height: 5),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class Savings extends StatelessWidget {
   const Savings({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Row(
+  children: [
+    Column(
       children: [
-        Column(
+        Stack(
+          alignment: Alignment.center, // Align the leaf icon to the center of the stack
           children: [
-            // Your Savings Widget Content
+            Container(
+              height: 100,
+              width: 200,
+              child: CircleIndicator(),
+            ),
+            Positioned(
+              bottom: 10,
+              child: Icon(
+                Ionicons.leaf, // Leaf icon
+                size: 30, // Adjust size as needed
+                color: Colors.green,
+              ),
+            ),
           ],
         ),
+<<<<<<< HEAD
         SizedBox(width: 20), // Adding space between the two circles
         Column(
           children: [
@@ -297,8 +361,49 @@ class Savings extends StatelessWidget {
                   color: Colors.white),
             ),
           ],
+=======
+        SizedBox(height: 10), // Adding some space between the chart and the text
+        Text(
+          'Emissions Saved',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+>>>>>>> eb816de22804b604a26fb7e880bcae8d8cb4412b
         ),
       ],
-    );
+    ),
+    SizedBox(width: 20), // Adding space between the two circles
+    Column(
+      children: [
+        Container(
+          height: 100,
+          width: 100,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: Colors.green, width: 2), // Green border
+          ),
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '\$', // Dollar sign
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
+                ),
+                Text(
+                  '70', // Your price value here
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(height: 10), // Adding some spacing between the circle and the text
+        Text(
+          'Money Saved',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+      ],
+    ),
+  ],
+);
   }
 }

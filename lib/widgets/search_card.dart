@@ -27,8 +27,12 @@ class _SearchCardState extends State<SearchCard> {
           onPressed: () {
             Navigator.push(
               context,
+<<<<<<< HEAD
               MaterialPageRoute(
                   builder: (context) => Home()), // Navigate to Maps.dart
+=======
+              MaterialPageRoute(builder: (context) => MapSample()), // Navigate to Maps.dart
+>>>>>>> eb816de22804b604a26fb7e880bcae8d8cb4412b
             );
           },
           child: TextField(

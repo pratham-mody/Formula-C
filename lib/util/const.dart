@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class Constants {
   static String appName = "Foody Bite";
-
   // Colors for theme
   static Color lightPrimary = Color(0xFFFFFFFF); // White
   static Color darkPrimary = Colors.black; // Black

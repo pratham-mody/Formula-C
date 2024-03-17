@@ -4,6 +4,7 @@ import 'package:flutter_foodybite/screens/home.dart';
 
 import 'package:flutter_foodybite/screens/maps_screen.dart';
 import 'package:flutter_foodybite/screens/profile.dart';
+import 'package:ionicons/ionicons.dart';
 
 import 'notifications.dart';
 
@@ -18,14 +19,13 @@ class _MainScreenState extends State<MainScreen> {
 
   List icons = [
     Icons.home,
-    Icons.label,
-    Icons.add,
+    Icons.map_sharp,
     Icons.notifications,
     Icons.person,
   ];
-
   List pages = [
     Home(),
+<<<<<<< HEAD
     MapsScreen(),
     Add(
       key: UniqueKey(),
@@ -36,8 +36,13 @@ class _MainScreenState extends State<MainScreen> {
     Profile(
       key: UniqueKey(),
     ),
+=======
+    Label(),
+    Add(key: UniqueKey(),),
+    Notifications(key: UniqueKey(),),
+    Profile(key: UniqueKey(),),
+>>>>>>> eb816de22804b604a26fb7e880bcae8d8cb4412b
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,13 +70,13 @@ class _MainScreenState extends State<MainScreen> {
       ),
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        elevation: 10.0,
-        child: Icon(
-          Icons.add,
-        ),
-        onPressed: () => _pageController.jumpToPage(2),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   elevation: 10.0,
+      //   child: Icon(
+      //     Icons.add,
+      //   ),
+      //   onPressed: () => _pageController.jumpToPage(2),
+      // ),
     );
   }
 
