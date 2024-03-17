@@ -14,7 +14,7 @@ import 'package:flutter_foodybite/util/const.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-   await FlutterConfig.loadEnvVariables(); 
+  await FlutterConfig.loadEnvVariables();
   runApp(MyApp());
 }
 
@@ -23,7 +23,7 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> { 
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
       title: Constants.appName,
       theme: Constants.lightTheme,
       darkTheme: Constants.darkTheme,
-      home: Label(),
+      home: MainScreen(),
       routes: {'/home': (context) => Home()},
     );
   }

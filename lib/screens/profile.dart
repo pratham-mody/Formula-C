@@ -86,9 +86,6 @@ class Profile extends StatelessWidget {
             SizedBox(height: 20),
             _buildPromoCodeSection(),
             SizedBox(height: 20),
-            _buildBlankBox('Blank 1'),
-            SizedBox(height: 20),
-            _buildBlankBox('Blank 2'),
             SizedBox(height: 20),
             _buildFeatureTile(
                 context, Icons.language, 'Language', LanguagePage()),

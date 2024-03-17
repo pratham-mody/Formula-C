@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_foodybite/screens/achivements.dart';
 import 'package:flutter_foodybite/screens/categories.dart';
+import 'package:flutter_foodybite/screens/reviews.dart';
 import 'package:flutter_foodybite/screens/trending.dart';
 import 'package:flutter_foodybite/util/categories.dart';
 import 'package:flutter_foodybite/util/friends.dart';
@@ -24,29 +26,7 @@ class _HomeState extends State<Home> {
   late String _email = '<EMAIL>';
 
   @override
-  void initState() {
-    super.initState();
-    getName().then((username) {
-      setState(() {
-        _username = username ?? 'User';
-      });
-    });
-    getemail().then((email) {
-      setState(() {
-        _email = email ?? '<EMAIL>';
-      });
-    });
-  }
-
-  getName() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('name');
-  }
-
-  getemail() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('email');
-  }
+  void initState() {}
 
   @override
   Widget build(BuildContext context) {
@@ -71,81 +51,32 @@ class _HomeState extends State<Home> {
             ],
           ),
           leading: IconButton(
-            icon: Icon(Icons.menu),
+            icon: Icon(Icons.car_rental),
             onPressed: () {
               _scaffoldKey.currentState?.openDrawer();
             },
-          ),
-        ),
-        drawer: Drawer(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              UserAccountsDrawerHeader(
-                decoration: BoxDecoration(color: Colors.blue),
-                currentAccountPicture: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: Icon(Ionicons.person)),
-                accountName: Text(_username),
-                accountEmail: Text(_email),
-              ),
-              ListTile(
-                leading: Icon(Icons.settings),
-                title: Text('Settings'),
-                subtitle: Text('Manage your app settings'),
-                trailing: Icon(Icons.arrow_forward_ios),
-                onTap: () {
-                  // Navigate to the settings page.
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.help),
-                title: Text('Help'),
-                subtitle: Text('Get help and support'),
-                trailing: Icon(Icons.arrow_forward_ios),
-                onTap: () {
-                  // Navigate to the help page.
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.exit_to_app),
-                onTap: () async {
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                  SharedPreferences prefs2 =
-                      await SharedPreferences.getInstance();
-                  prefs.remove('name');
-                  prefs2.remove('email');
-                  Navigator.pushReplacementNamed(context, '/');
-                },
-                title: Text('Exit'),
-                subtitle: Text('Signout'),
-                trailing: Icon(Icons.arrow_forward_ios),
-                onLongPress: () {
-                  // Navigate to the help page.
-                },
-              ),
-            ],
           ),
         ),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
           child: ListView(
             children: <Widget>[
-              buildSearchBar(context),
+              // buildSearchBar(context),
               SizedBox(height: 20.0),
               Text(
-                "Performace",
+                "Savings",
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.w800,
                 ),
               ),
               Savings(),
-              SizedBox(height: 30,),
+              SizedBox(
+                height: 30,
+              ),
               pools(),
               SizedBox(height: 10.0),
-              buildCategoryRow('Achievements', context),
+              buildAchievementsRow('Achievements', context),
               SizedBox(height: 10.0),
               buildCategoryList(context),
               SizedBox(height: 20.0),
@@ -168,6 +99,39 @@ class _HomeState extends State<Home> {
   }
 
   Widget buildCategoryRow(String category, BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Text(
+          "$category",
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        TextButton(
+          child: Text(
+            "See all (9)",
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return ReviewPage();
+                },
+              ),
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget buildAchievementsRow(String category, BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
@@ -271,13 +235,13 @@ class pools extends StatelessWidget {
             children: [
               Row(
                 children: [
-    Container(
-      height: 30,
-      width: 30,
-      child: Icon(Icons.directions_car), // Car icon
-    ),
-    SizedBox(width: 5),
-    Text('Ride Along'), // Text beside the car icon
+                  Container(
+                    height: 30,
+                    width: 30,
+                    child: Icon(Icons.directions_car), // Car icon
+                  ),
+                  SizedBox(width: 5),
+                  Text('Ride Along'), // Text beside the car icon
                 ],
               ),
               SizedBox(height: 5),
@@ -295,68 +259,82 @@ class Savings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-  children: [
-    Column(
       children: [
-        Stack(
-          alignment: Alignment.center, // Align the leaf icon to the center of the stack
+        Column(
           children: [
-            Container(
-              height: 100,
-              width: 200,
-              child: CircleIndicator(),
-            ),
-            Positioned(
-              bottom: 10,
-              child: Icon(
-                Ionicons.leaf, // Leaf icon
-                size: 30, // Adjust size as needed
-                color: Colors.green,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 10), // Adding some space between the chart and the text
-        Text(
-          'Emissions Saved',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-      ],
-    ),
-    SizedBox(width: 20), // Adding space between the two circles
-    Column(
-      children: [
-        Container(
-          height: 100,
-          width: 100,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: Colors.green, width: 2), // Green border
-          ),
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Stack(
+              alignment: Alignment
+                  .center, // Align the leaf icon to the center of the stack
               children: [
-                Text(
-                  '\$', // Dollar sign
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
+                Container(
+                  height: 100,
+                  width: 200,
+                  child: CircleIndicator(),
                 ),
-                Text(
-                  '70', // Your price value here
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
+                Positioned(
+                  bottom: 10,
+                  child: Icon(
+                    Ionicons.leaf, // Leaf icon
+                    size: 30, // Adjust size as needed
+                    color: Colors.green,
+                  ),
                 ),
               ],
             ),
-          ),
+            SizedBox(
+                height: 10), // Adding some space between the chart and the text
+            Text(
+              'Emissions',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
-        SizedBox(height: 10), // Adding some spacing between the circle and the text
-        Text(
-          'Money Saved',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+        SizedBox(width: 20), // Adding space between the two circles
+        Column(
+          children: [
+            Container(
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border:
+                    Border.all(color: Colors.green, width: 2), // Green border
+              ),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '\₹', // Dollar sign
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green),
+                    ),
+                    Text(
+                      '300', // Your price value here
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+                height:
+                    10), // Adding some spacing between the circle and the text
+            Text(
+              'Money',
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+          ],
         ),
       ],
-    ),
-  ],
-);
+    );
   }
 }
