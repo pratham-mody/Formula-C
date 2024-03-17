@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_foodybite/screens/maps.dart';
+import 'package:flutter_foodybite/screens/home.dart';
+//import 'package:flutter_foodybite/screens/maps.dart';
 // import 'package:your_app_name/maps.dart'; // Import your maps.dart file
 
 class SearchCard extends StatefulWidget {
@@ -26,7 +27,8 @@ class _SearchCardState extends State<SearchCard> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Maps()), // Navigate to Maps.dart
+              MaterialPageRoute(
+                  builder: (context) => Home()), // Navigate to Maps.dart
             );
           },
           child: TextField(

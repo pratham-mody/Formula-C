@@ -38,7 +38,7 @@ class _AchievementsPageState extends State<AchievementsPage> {
       imagePath: "assets/2.jpg",
     ),
     Achievement(
-     title: "10 pools",
+      title: "10 pools",
       description: "First 10 pools completed",
       imagePath: "assets/3.jpg",
     ),
@@ -92,7 +92,8 @@ class _AchievementsPageState extends State<AchievementsPage> {
 
   @override
   Widget build(BuildContext context) {
-    int unlockedCount = achievements.where((achievement) => achievement.unlocked).length;
+    int unlockedCount =
+        achievements.where((achievement) => achievement.unlocked).length;
     double progress = unlockedCount / achievements.length;
 
     return Scaffold(
@@ -100,7 +101,8 @@ class _AchievementsPageState extends State<AchievementsPage> {
         title: Text(
           'Achievements',
           style: TextStyle(
-            fontFamily: 'YourCustomFont', // Change this to your custom font family
+            fontFamily:
+                'YourCustomFont', // Change this to your custom font family
             fontSize: 20.0,
             color: Colors.white, // Change the font size as needed
             fontWeight: FontWeight.bold, // Change the font weight as needed
@@ -112,9 +114,11 @@ class _AchievementsPageState extends State<AchievementsPage> {
           Expanded(
             child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3, // Change this to display 3 circles in each row
+                crossAxisCount:
+                    3, // Change this to display 3 circles in each row
                 mainAxisSpacing: 20.0, // Add vertical spacing between rows
-                crossAxisSpacing: 20.0, // Add horizontal spacing between circles
+                crossAxisSpacing:
+                    20.0, // Add horizontal spacing between circles
               ),
               itemCount: achievements.length,
               itemBuilder: (BuildContext context, int index) {
@@ -123,7 +127,8 @@ class _AchievementsPageState extends State<AchievementsPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AchievementDetailPage(achievement: achievements[index]),
+                        builder: (context) => AchievementDetailPage(
+                            achievement: achievements[index]),
                       ),
                     );
                   },
@@ -132,15 +137,21 @@ class _AchievementsPageState extends State<AchievementsPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: CircleAvatar(
-                          backgroundImage: AssetImage(achievements[index].imagePath),
-                          radius: 60, // Adjust the radius of the circle as needed
-                          backgroundColor: achievements[index].unlocked ? Colors.transparent : Colors.black.withOpacity(0.5),
+                          backgroundImage:
+                              AssetImage(achievements[index].imagePath),
+                          radius:
+                              60, // Adjust the radius of the circle as needed
+                          backgroundColor: achievements[index].unlocked
+                              ? Colors.transparent
+                              : Colors.black.withOpacity(0.5),
                         ),
                       ),
-                      if (!achievements[index].unlocked) // Show overlay for locked achievements
+                      if (!achievements[index]
+                          .unlocked) // Show overlay for locked achievements
                         Positioned.fill(
                           child: Container(
-                            color: Colors.black.withOpacity(0.5), // Darken the overlay
+                            color: Colors.black
+                                .withOpacity(0.5), // Darken the overlay
                           ),
                         ),
                       Positioned(
@@ -179,8 +190,10 @@ class _AchievementsPageState extends State<AchievementsPage> {
                 Container(
                   height: 20, // Adjust the height of the progress bar
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10), // Adjust the border radius to make it curved
-                    color: Colors.grey.withOpacity(0.3), // Adjust the background color of the progress bar
+                    borderRadius: BorderRadius.circular(
+                        10), // Adjust the border radius to make it curved
+                    color: Colors.grey.withOpacity(
+                        0.3), // Adjust the background color of the progress bar
                   ),
                 ),
                 FractionallySizedBox(
@@ -188,7 +201,8 @@ class _AchievementsPageState extends State<AchievementsPage> {
                   child: Container(
                     height: 20, // Adjust the height of the progress bar
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10), // Adjust the border radius to make it curved
+                      borderRadius: BorderRadius.circular(
+                          10), // Adjust the border radius to make it curved
                       color: Colors.green, // Change progress bar color to green
                     ),
                   ),
@@ -215,7 +229,8 @@ class AchievementDetailPage extends StatelessWidget {
         title: Text(
           'Achievements',
           style: TextStyle(
-            fontFamily: 'YourCustomFont', // Change this to your custom font family
+            fontFamily:
+                'YourCustomFont', // Change this to your custom font family
             fontSize: 20.0, // Change the font size as needed
             fontWeight: FontWeight.bold, // Change the font weight as needed
           ),
@@ -229,14 +244,18 @@ class AchievementDetailPage extends StatelessWidget {
               width: 200, // Adjust the width of the square frame
               height: 200, // Adjust the height of the square frame
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20), // Adjust the roundness of the corners
-                color: Colors.grey[200], // Adjust the background color of the square frame
+                borderRadius: BorderRadius.circular(
+                    20), // Adjust the roundness of the corners
+                color: Colors.grey[
+                    200], // Adjust the background color of the square frame
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(20), // Adjust the roundness of the corners
+                borderRadius: BorderRadius.circular(
+                    20), // Adjust the roundness of the corners
                 child: Image.asset(
                   achievement.imagePath,
-                  fit: BoxFit.cover, // Adjust the fit of the image within the square frame
+                  fit: BoxFit
+                      .cover, // Adjust the fit of the image within the square frame
                 ),
               ),
             ),

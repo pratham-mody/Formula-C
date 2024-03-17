@@ -255,36 +255,48 @@ class Savings extends StatelessWidget {
         ),
         SizedBox(width: 20), // Adding space between the two circles
         Column(
-     children: [
-       Container(
-         height: 100,
-         width: 100,
-         decoration: BoxDecoration(
-           shape: BoxShape.circle,
-           border: Border.all(color: Colors.green, width: 2), // Green border
-         ),
-         child: Center(
-           child: Row(
-             mainAxisAlignment: MainAxisAlignment.center,
-             children: [
-               Text(
-                 '\₹', 
-                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
-               ),
-               Text(
-                 '300', // Your price value here
-                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
-               ),
-             ],
-           ),
-         ),
-       ),
-       SizedBox(height: 10), // Adding some spacing between the circle and the text
-       Text(
-         'Money Saved',
-         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
-       ),
-     ],
+          children: [
+            Container(
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border:
+                    Border.all(color: Colors.green, width: 2), // Green border
+              ),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '\₹',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green),
+                    ),
+                    Text(
+                      '300', // Your price value here
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+                height:
+                    10), // Adding some spacing between the circle and the text
+            Text(
+              'Money Saved',
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+          ],
         ),
       ],
     );
