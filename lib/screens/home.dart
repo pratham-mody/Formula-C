@@ -71,74 +71,26 @@ class _HomeState extends State<Home> {
             ],
           ),
           leading: IconButton(
-            icon: Icon(Icons.menu),
+            icon: Icon(Icons.car_rental),
             onPressed: () {
-              _scaffoldKey.currentState?.openDrawer();
+              // _scaffoldKey.currentState?.openDrawer();
             },
-          ),
-        ),
-        drawer: Drawer(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              UserAccountsDrawerHeader(
-                decoration: BoxDecoration(color: Colors.blue),
-                currentAccountPicture: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: Icon(Ionicons.person)),
-                accountName: Text(_username),
-                accountEmail: Text(_email),
-              ),
-              ListTile(
-                leading: Icon(Icons.settings),
-                title: Text('Settings'),
-                subtitle: Text('Manage your app settings'),
-                trailing: Icon(Icons.arrow_forward_ios),
-                onTap: () {
-                  // Navigate to the settings page.
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.help),
-                title: Text('Help'),
-                subtitle: Text('Get help and support'),
-                trailing: Icon(Icons.arrow_forward_ios),
-                onTap: () {
-                  // Navigate to the help page.
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.exit_to_app),
-                onTap: () async {
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                  SharedPreferences prefs2 =
-                      await SharedPreferences.getInstance();
-                  prefs.remove('name');
-                  prefs2.remove('email');
-                  Navigator.pushReplacementNamed(context, '/');
-                },
-                title: Text('Exit'),
-                subtitle: Text('Signout'),
-                trailing: Icon(Icons.arrow_forward_ios),
-                onLongPress: () {
-                  // Navigate to the help page.
-                },
-              ),
-            ],
           ),
         ),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
           child: ListView(
             children: <Widget>[
-              buildSearchBar(context),
+              // buildSearchBar(c/sontext)
               SizedBox(height: 20.0),
-              Text(
-                "Performace",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w800,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10,0,0,0),
+                child: Text(
+                  "Savings",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
               Savings(),
@@ -318,7 +270,7 @@ class Savings extends StatelessWidget {
         ),
         SizedBox(height: 10), // Adding some space between the chart and the text
         Text(
-          'Emissions Saved',
+          'Emissions ',
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
       ],
@@ -342,7 +294,7 @@ class Savings extends StatelessWidget {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
                 ),
                 Text(
-                  '70', // Your price value here
+                  '300', // Your price value here
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
                 ),
               ],
@@ -351,7 +303,7 @@ class Savings extends StatelessWidget {
         ),
         SizedBox(height: 10), // Adding some spacing between the circle and the text
         Text(
-          'Money Saved',
+          'Money',
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ],
