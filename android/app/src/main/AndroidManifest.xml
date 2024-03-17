@@ -5,6 +5,12 @@
         android:label="formulac"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+<<<<<<< HEAD
+
+        <meta-data android:name="com.google.android.geo.AIzaSyCiK_BbIXq8mIXdqaAPxf4WG9LwM2_CYkk"
+               android:value="AIzaSyCiK_BbIXq8mIXdqaAPxf4WG9LwM2_CYkk"/>
+=======
+>>>>>>> eb816de22804b604a26fb7e880bcae8d8cb4412b
         <activity
             android:name=".MainActivity"
             android:exported="true"

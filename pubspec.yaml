@@ -18,16 +18,25 @@ environment:
 
 dependencies:
   cupertino_icons: ^1.0.6
+  google_maps_flutter: ^2.6.0
+  flutter_config: ^2.0.2
+
   flutter:
     sdk: flutter
+<<<<<<< HEAD
+
+=======
   flutter_config: ^2.0.2
   # flutter_polyline_points: ^2.0.0
   flutter_svg: ^2.0.10+1
   google_maps_flutter: ^2.6.0
+>>>>>>> eb816de22804b604a26fb7e880bcae8d8cb4412b
   ionicons: ^0.2.2
   # location: ^5.0.3
   shared_preferences: ^2.2.2
   syncfusion_flutter_gauges: ^25.1.35
+  flutter_polyline_points: ^2.0.0
+  location: ^5.0.3
 
 dev_dependencies:
   flutter_test:

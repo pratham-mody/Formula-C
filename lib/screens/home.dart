@@ -262,9 +262,94 @@ class Savings extends StatelessWidget {
       children: [
         Column(
           children: [
+<<<<<<< HEAD
             Stack(
               alignment: Alignment
                   .center, // Align the leaf icon to the center of the stack
+=======
+            Container(
+              height: 100,
+              width: 200,
+              child: CircleIndicator(),
+            ),
+            Positioned(
+              bottom: 10,
+              child: Icon(
+                Ionicons.leaf, // Leaf icon
+                size: 30, // Adjust size as needed
+                color: Colors.green,
+              ),
+            ),
+          ],
+        ),
+<<<<<<< HEAD
+        SizedBox(width: 20), // Adding space between the two circles
+        Column(
+          children: [
+            Container(
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border:
+                    Border.all(color: Colors.green, width: 2), // Green border
+              ),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '\₹',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green),
+                    ),
+                    Text(
+                      '300', // Your price value here
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+                height:
+                    10), // Adding some spacing between the circle and the text
+            Text(
+              'Money Saved',
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+          ],
+=======
+        SizedBox(height: 10), // Adding some space between the chart and the text
+        Text(
+          'Emissions Saved',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+>>>>>>> eb816de22804b604a26fb7e880bcae8d8cb4412b
+        ),
+      ],
+    ),
+    SizedBox(width: 20), // Adding space between the two circles
+    Column(
+      children: [
+        Container(
+          height: 100,
+          width: 100,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: Colors.green, width: 2), // Green border
+          ),
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+>>>>>>> 95bdd422bc40b08f6f95000eab1927644a655b43
               children: [
                 Container(
                   height: 100,

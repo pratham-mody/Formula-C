@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_foodybite/screens/add.dart';
 import 'package:flutter_foodybite/screens/home.dart';
-import 'package:flutter_foodybite/screens/label.dart';
+
+import 'package:flutter_foodybite/screens/maps_screen.dart';
 import 'package:flutter_foodybite/screens/profile.dart';
 import 'package:flutter_foodybite/screens/reviews.dart';
 import 'package:ionicons/ionicons.dart';
@@ -25,11 +26,22 @@ class _MainScreenState extends State<MainScreen> {
   ];
   List pages = [
     Home(),
-    Label(),
-    ReviewPage(),
+<<<<<<< HEAD
+    MapsScreen(),
+    Add(
+      key: UniqueKey(),
+    ),
+    Notifications(
+      key: UniqueKey(),
+    ),
     Profile(
       key: UniqueKey(),
     ),
+=======
+    Label(),
+    Add(key: UniqueKey(),),
+    Notifications(key: UniqueKey(),),
+    Profile(key: UniqueKey(),),
   ];
   @override
   Widget build(BuildContext context) {
@@ -38,7 +50,7 @@ class _MainScreenState extends State<MainScreen> {
         physics: NeverScrollableScrollPhysics(),
         controller: _pageController,
         onPageChanged: onPageChanged,
-        children: List.generate(4, (index) => pages[index]),
+        children: List.generate(5, (index) =>  pages[index] ),
       ),
       bottomNavigationBar: BottomAppBar(
         child: Row(

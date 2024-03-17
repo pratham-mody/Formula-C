@@ -13,6 +13,8 @@ import 'package:flutter_foodybite/screens/profile.dart';
 import 'package:flutter_foodybite/util/const.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
+  await FlutterConfig.loadEnvVariables();
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterConfig.loadEnvVariables();
   runApp(MyApp());
