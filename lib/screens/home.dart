@@ -190,7 +190,7 @@ class _HomeState extends State<Home> {
               context,
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return achievements();
+                  return AchievementsPage();
                 },
               ),
             );

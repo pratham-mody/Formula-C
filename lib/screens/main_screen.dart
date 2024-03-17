@@ -20,7 +20,6 @@ class _MainScreenState extends State<MainScreen> {
   List icons = [
     Icons.home,
     Icons.map_sharp,
-    Icons.add,
     Icons.notifications,
     Icons.person,
   ];
@@ -58,13 +57,13 @@ class _MainScreenState extends State<MainScreen> {
       ),
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        elevation: 10.0,
-        child: Icon(
-          Icons.add,
-        ),
-        onPressed: () => _pageController.jumpToPage(2),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   elevation: 10.0,
+      //   child: Icon(
+      //     Icons.add,
+      //   ),
+      //   onPressed: () => _pageController.jumpToPage(2),
+      // ),
     );
   }
 
