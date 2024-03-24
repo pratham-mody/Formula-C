@@ -1,10 +1,7 @@
 // ignore_for_file: unused_import
-
 import 'package:flutter/material.dart';
-import 'package:flutter_foodybite/screens/trending.dart';
-import 'package:flutter_foodybite/util/categories.dart';
-import 'package:flutter_foodybite/widgets/category_item.dart';
-
+import 'package:formula_c/screens/trending.dart';
+import 'package:formula_c/util/categories.dart';
 class Categories extends StatefulWidget {
   @override
   _CategoriesState createState() => _CategoriesState();

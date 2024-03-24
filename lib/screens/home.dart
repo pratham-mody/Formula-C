@@ -1,17 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_foodybite/screens/achivements.dart';
-import 'package:flutter_foodybite/screens/categories.dart';
-import 'package:flutter_foodybite/screens/reviews.dart';
-import 'package:flutter_foodybite/screens/trending.dart';
-import 'package:flutter_foodybite/util/categories.dart';
-import 'package:flutter_foodybite/util/friends.dart';
-import 'package:flutter_foodybite/util/restaurants.dart';
-import 'package:flutter_foodybite/widgets/category_item.dart';
-import 'package:flutter_foodybite/widgets/circle_indicator.dart'; // Assuming you have CircleIndicator widget
-import 'package:flutter_foodybite/widgets/search_card.dart';
-import 'package:flutter_foodybite/widgets/slide_item.dart';
+import 'package:formula_c/screens/Reviewpage.dart';
+import 'package:formula_c/screens/achivements.dart';
+import 'package:formula_c/util/categories.dart';
+import 'package:formula_c/util/friends.dart';
+import 'package:formula_c/widgets/category_item.dart';
+import 'package:formula_c/widgets/circle_indicator.dart';
+import 'package:formula_c/widgets/search_card.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -262,28 +258,32 @@ class Savings extends StatelessWidget {
       children: [
         Column(
           children: [
-<<<<<<< HEAD
             Stack(
-              alignment: Alignment
-                  .center, // Align the leaf icon to the center of the stack
-=======
-            Container(
-              height: 100,
-              width: 200,
-              child: CircleIndicator(),
+              alignment: Alignment.center,
+              children: [ // Added children property for Stack
+                Container(
+                  height: 100,
+                  width: 200,
+                  child: CircleIndicator(),
+                ),
+                Positioned(
+                  bottom: 10,
+                  child: Icon(
+                    Ionicons.leaf, // Leaf icon
+                    size: 30, // Adjust size as needed
+                    color: Colors.green,
+                  ),
+                ),
+              ],
             ),
-            Positioned(
-              bottom: 10,
-              child: Icon(
-                Ionicons.leaf, // Leaf icon
-                size: 30, // Adjust size as needed
-                color: Colors.green,
-              ),
+            SizedBox(height: 10), // Adding some space between the chart and the text
+            Text(
+              'Emissions ',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ],
         ),
-<<<<<<< HEAD
-        SizedBox(width: 20), // Adding space between the two circles
+        SizedBox(width: 20), // Adding space between the two columns
         Column(
           children: [
             Container(
@@ -291,93 +291,38 @@ class Savings extends StatelessWidget {
               width: 100,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border:
-                    Border.all(color: Colors.green, width: 2), // Green border
+                border: Border.all(color: Colors.green, width: 2), // Green border
               ),
               child: Center(
-                child: Row(
+                child: Column( // Changed Row to Column
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      '\₹',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green),
+                    Container(
+                      height: 100,
+                      width: 100,
+                      child: CircleIndicator(),
                     ),
                     Text(
-                      '300', // Your price value here
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green),
+                      '70', // Your price value here
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(
-                height:
-                    10), // Adding some spacing between the circle and the text
-            Text(
-              'Money Saved',
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
-            ),
-          ],
-=======
-        SizedBox(height: 10), // Adding some space between the chart and the text
-        Text(
-          'Emissions ',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
->>>>>>> eb816de22804b604a26fb7e880bcae8d8cb4412b
-        ),
-      ],
-    ),
-    SizedBox(width: 20), // Adding space between the two circles
-    Column(
-      children: [
-        Container(
-          height: 100,
-          width: 100,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: Colors.green, width: 2), // Green border
-          ),
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
->>>>>>> 95bdd422bc40b08f6f95000eab1927644a655b43
-              children: [
-                Container(
-                  height: 100,
-                  width: 200,
-                  child: CircleIndicator(),
-                ),
-                Text(
-                  '70', // Your price value here
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
-                ),
-              ],
-            ),
-            SizedBox(
-                height: 10), // Adding some space between the chart and the text
+            SizedBox(height: 10), // Adding some space between the circle and the text
             Text(
               'Emissions',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
+            SizedBox(height: 10), // Adding some spacing between the text and the next column
+            Text(
+              'Money Saved',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+            ),
           ],
         ),
-        SizedBox(height: 10), // Adding some spacing between the circle and the text
-        Text(
-          'Money Saved',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
       ],
-    ),
-  ],
-);
+    );
   }
 }

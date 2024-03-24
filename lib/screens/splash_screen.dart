@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_foodybite/screens/maps.dart';
+import 'package:formula_c/screens/maps_screen.dart';
 // import 'package:your_flutter_project_name/map_sample.dart'; // Import your MapSample widget
 
 void main() {

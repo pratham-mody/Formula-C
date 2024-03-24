@@ -1,7 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'package:flutter/material.dart';
-import 'package:flutter_foodybite/screens/payment_page.dart';
+import 'package:formula_c/screens/payment_page.dart';
 import 'payment.dart'; // Import the PaymentPage class
 
 class Profile extends StatelessWidget {

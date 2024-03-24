@@ -2,16 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
-import 'package:flutter_foodybite/screens/Signup.dart';
-import 'package:flutter_foodybite/screens/achivements.dart';
-import 'package:flutter_foodybite/screens/home.dart';
-import 'package:flutter_foodybite/screens/label.dart';
-import 'package:flutter_foodybite/screens/main_screen.dart';
-//import 'package:flutter_foodybite/screens/maps_screen.dart';
-// import 'package:flutter_foodybite/screens/maps_screen.dart';
-import 'package:flutter_foodybite/screens/profile.dart';
-import 'package:flutter_foodybite/screens/splash_screen.dart';
-import 'package:flutter_foodybite/util/const.dart';
+import 'package:formula_c/screens/home.dart';
+import 'package:formula_c/screens/main_screen.dart';
+import 'package:formula_c/util/const.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig

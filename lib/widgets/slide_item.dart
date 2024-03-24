@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_foodybite/util/const.dart';
+import 'package:formula_c/util/const.dart';
 
 class SlideItem extends StatefulWidget {
   final String img;

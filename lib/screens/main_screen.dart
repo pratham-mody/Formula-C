@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_foodybite/screens/Reviewpage.dart';
-import 'package:flutter_foodybite/screens/add.dart';
-import 'package:flutter_foodybite/screens/home.dart';
-
-import 'package:flutter_foodybite/screens/maps_screen.dart';
-import 'package:flutter_foodybite/screens/profile.dart';
-import 'package:flutter_foodybite/screens/reviews.dart';
+import 'package:formula_c/screens/Reviewpage.dart';
+import 'package:formula_c/screens/add.dart';
+import 'package:formula_c/screens/home.dart';
+import 'package:formula_c/screens/maps_screen.dart';
+import 'package:formula_c/screens/profile.dart';
 import 'package:ionicons/ionicons.dart';
 
 import 'notifications.dart';
@@ -27,27 +25,12 @@ class _MainScreenState extends State<MainScreen> {
   ];
   List pages = [
     Home(),
-<<<<<<< HEAD
-    MapScreen(),
+    MapsScreen(),
     ReviewPage(),
     // Notifications(key: UniqueKey(),),
-=======
-<<<<<<< HEAD
-    MapsScreen(),
-    Add(
-      key: UniqueKey(),
-    ),
-    Notifications(
-      key: UniqueKey(),
-    ),
-    Profile(
-      key: UniqueKey(),
-    ),
-=======
-    Label(),
+    // Label(),
     Add(key: UniqueKey(),),
     Notifications(key: UniqueKey(),),
->>>>>>> refs/remotes/origin/main
     Profile(key: UniqueKey(),),
   ];
   @override

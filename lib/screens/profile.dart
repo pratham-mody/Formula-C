@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_foodybite/screens/accountpage.dart';
-import 'package:flutter_foodybite/screens/payment_page.dart';
-import 'package:flutter_foodybite/screens/help_page.dart';
-import 'package:flutter_foodybite/screens/settings_page.dart';
-import 'package:flutter_foodybite/screens/language_page.dart';
+import 'package:formula_c/screens/accountpage.dart';
+import 'package:formula_c/screens/help_page.dart';
+import 'package:formula_c/screens/language_page.dart';
+import 'package:formula_c/screens/payment_page.dart';
+import 'package:formula_c/screens/settings_page.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
@@ -86,14 +86,7 @@ class Profile extends StatelessWidget {
             SizedBox(height: 20),
             _buildPromoCodeSection(),
             SizedBox(height: 20),
-<<<<<<< HEAD
-            // _buildBlankBox('Blank 1'),
-            // SizedBox(height: 20),
-            // _buildBlankBox('Blank 2'),
-            // SizedBox(height: 20),
-=======
             SizedBox(height: 20),
->>>>>>> refs/remotes/origin/main
             _buildFeatureTile(
                 context, Icons.language, 'Language', LanguagePage()),
             SizedBox(height: 20),
