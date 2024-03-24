@@ -86,10 +86,14 @@ class Profile extends StatelessWidget {
             SizedBox(height: 20),
             _buildPromoCodeSection(),
             SizedBox(height: 20),
+<<<<<<< HEAD
             // _buildBlankBox('Blank 1'),
             // SizedBox(height: 20),
             // _buildBlankBox('Blank 2'),
             // SizedBox(height: 20),
+=======
+            SizedBox(height: 20),
+>>>>>>> refs/remotes/origin/main
             _buildFeatureTile(
                 context, Icons.language, 'Language', LanguagePage()),
             SizedBox(height: 20),

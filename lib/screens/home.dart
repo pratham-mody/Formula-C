@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_foodybite/screens/achivements.dart';
 import 'package:flutter_foodybite/screens/categories.dart';
+import 'package:flutter_foodybite/screens/reviews.dart';
 import 'package:flutter_foodybite/screens/trending.dart';
 import 'package:flutter_foodybite/util/categories.dart';
 import 'package:flutter_foodybite/util/friends.dart';
@@ -24,29 +26,7 @@ class _HomeState extends State<Home> {
   late String _email = '<EMAIL>';
 
   @override
-  void initState() {
-    super.initState();
-    getName().then((username) {
-      setState(() {
-        _username = username ?? 'User';
-      });
-    });
-    getemail().then((email) {
-      setState(() {
-        _email = email ?? '<EMAIL>';
-      });
-    });
-  }
-
-  getName() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('name');
-  }
-
-  getemail() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('email');
-  }
+  void initState() {}
 
   @override
   Widget build(BuildContext context) {
@@ -81,23 +61,22 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
           child: ListView(
             children: <Widget>[
-              // buildSearchBar(c/sontext)
+              buildSearchBar(context),
               SizedBox(height: 20.0),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10,0,0,0),
-                child: Text(
-                  "Savings",
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w800,
-                  ),
+              Text(
+                "Performace",
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
               Savings(),
-              SizedBox(height: 30,),
+              SizedBox(
+                height: 30,
+              ),
               pools(),
               SizedBox(height: 10.0),
-              buildCategoryRow('Achievements', context),
+              buildAchievementsRow('Achievements', context),
               SizedBox(height: 10.0),
               buildCategoryList(context),
               SizedBox(height: 20.0),
@@ -120,6 +99,39 @@ class _HomeState extends State<Home> {
   }
 
   Widget buildCategoryRow(String category, BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Text(
+          "$category",
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        TextButton(
+          child: Text(
+            "See all (9)",
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return ReviewPage();
+                },
+              ),
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget buildAchievementsRow(String category, BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
@@ -223,13 +235,13 @@ class pools extends StatelessWidget {
             children: [
               Row(
                 children: [
-    Container(
-      height: 30,
-      width: 30,
-      child: Icon(Icons.directions_car), // Car icon
-    ),
-    SizedBox(width: 5),
-    Text('Ride Along'), // Text beside the car icon
+                  Container(
+                    height: 30,
+                    width: 30,
+                    child: Icon(Icons.directions_car), // Car icon
+                  ),
+                  SizedBox(width: 5),
+                  Text('Ride Along'), // Text beside the car icon
                 ],
               ),
               SizedBox(height: 5),
@@ -247,12 +259,14 @@ class Savings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-  children: [
-    Column(
       children: [
-        Stack(
-          alignment: Alignment.center, // Align the leaf icon to the center of the stack
+        Column(
           children: [
+<<<<<<< HEAD
+            Stack(
+              alignment: Alignment
+                  .center, // Align the leaf icon to the center of the stack
+=======
             Container(
               height: 100,
               width: 200,
@@ -268,10 +282,57 @@ class Savings extends StatelessWidget {
             ),
           ],
         ),
+<<<<<<< HEAD
+        SizedBox(width: 20), // Adding space between the two circles
+        Column(
+          children: [
+            Container(
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border:
+                    Border.all(color: Colors.green, width: 2), // Green border
+              ),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '\₹',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green),
+                    ),
+                    Text(
+                      '300', // Your price value here
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+                height:
+                    10), // Adding some spacing between the circle and the text
+            Text(
+              'Money Saved',
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+          ],
+=======
         SizedBox(height: 10), // Adding some space between the chart and the text
         Text(
           'Emissions ',
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+>>>>>>> eb816de22804b604a26fb7e880bcae8d8cb4412b
         ),
       ],
     ),
@@ -288,22 +349,30 @@ class Savings extends StatelessWidget {
           child: Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
+>>>>>>> 95bdd422bc40b08f6f95000eab1927644a655b43
               children: [
-                Text(
-                  '\$', // Dollar sign
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
+                Container(
+                  height: 100,
+                  width: 200,
+                  child: CircleIndicator(),
                 ),
                 Text(
-                  '300', // Your price value here
+                  '70', // Your price value here
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
                 ),
               ],
             ),
-          ),
+            SizedBox(
+                height: 10), // Adding some space between the chart and the text
+            Text(
+              'Emissions',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
         SizedBox(height: 10), // Adding some spacing between the circle and the text
         Text(
-          'Money',
+          'Money Saved',
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ],
