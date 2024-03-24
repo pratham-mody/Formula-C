@@ -17,21 +17,9 @@ def flutterVersionCode = localProperties.getProperty('flutter.versionCode') ?: '
 def flutterVersionName = localProperties.getProperty('flutter.versionName') ?: '1.0'
 
 android {
-<<<<<<< HEAD
-    compileSdkVersion 31 // Adjust this to the needed SDK version
-
-    defaultConfig {
-        applicationId "com.example.formulac" // Your applicationId
-        minSdkVersion 20 // Minimum SDK version supported
-        targetSdkVersion 31 // Target SDK version
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
-    }
-=======
     namespace "com.example.formulac"
     compileSdk 34
     ndkVersion flutter.ndkVersion
->>>>>>> eb816de22804b604a26fb7e880bcae8d8cb4412b
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -42,8 +30,6 @@ android {
         jvmTarget = '1.8'
     }
 
-<<<<<<< HEAD
-=======
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
@@ -59,7 +45,6 @@ android {
         versionName flutterVersionName
     }
 
->>>>>>> eb816de22804b604a26fb7e880bcae8d8cb4412b
     buildTypes {
         release {
             // Configure this for your own release build.
