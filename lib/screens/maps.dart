@@ -1,51 +1,126 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+// import 'package:foodtruck/core/constants/constants.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
-class MapSample extends StatefulWidget {
-  const MapSample({super.key});
+class MapsScreen extends StatefulWidget {
+  const MapsScreen({Key? key}) : super(key: key);
 
   @override
-  State<MapSample> createState() => MapSampleState();
+  State<MapsScreen> createState() => _MapsScreenState();
 }
 
-class MapSampleState extends State<MapSample> {
-  static const LatLng _cGooglePlex=LatLng(19.197755078634067, 72.82720375205461);
-    static const LatLng _dGooglePlex=LatLng(19.211443071971722, 72.84050548089076);
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
-// 19.197755078634067, 72.82720375205461
-  // static const CameraPosition _kGooglePlex = CameraPosition(
-  //   target: LatLng(19.197755078634067, 72.82720375205461),
-  //   zoom: 14.4746,
-  // );
+class _MapsScreenState extends State<MapsScreen> {
+  final Completer<GoogleMapController> controller = Completer();
+  String google_api_key="AIzaSyAZ6My-DMfYoz08vt3U-VFdqyBIW3-rL3c";
+  static const LatLng sourceLocation = LatLng(37.33500926, -122.03272188);
+  static const LatLng destination = LatLng(37.33429383, -122.06600055);
 
-  static const CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(19.197755078634067, 72.82720375205461),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);  
+  List<LatLng> polylineCoordinates = [];
+  LocationData? currentLocation;
+
+  BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor currentLocationIcon = BitmapDescriptor.defaultMarker;
+
+  void getCurrentLocation() async {
+    Location location = Location();
+
+    location.getLocation().then((location) {
+      currentLocation = location;
+    });
+    GoogleMapController googleMapController = (await controller.future);
+    location.onLocationChanged.listen((event) {
+      currentLocation = event;
+      googleMapController.animateCamera(CameraUpdate.newCameraPosition(
+          CameraPosition(
+              zoom: 13.5, target: LatLng(event.latitude!, event.longitude!))));
+      setState(() {});
+    });
+  }
+
+  void setCustomMarkerIcon() {
+    BitmapDescriptor.fromAssetImage(
+            ImageConfiguration.empty, "assets/images/source.png")
+        .then((icon) {
+      sourceIcon = icon;
+    });
+    BitmapDescriptor.fromAssetImage(
+            ImageConfiguration.empty, "assets/images/destination.png")
+        .then((icon) {
+      destinationIcon = icon;
+    });
+    BitmapDescriptor.fromAssetImage(
+            ImageConfiguration.empty, "assets/images/truck.png")
+        .then((icon) {
+      currentLocationIcon = icon;
+    });
+  }
+
+  void getPolyPoints() async {
+    PolylinePoints polylinePoints = PolylinePoints();
+
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+        google_api_key,
+        PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
+        PointLatLng(destination.latitude, destination.longitude));
+
+    if (result.points.isNotEmpty) {
+      result.points.forEach((PointLatLng point) =>
+          polylineCoordinates.add(LatLng(point.latitude, point.longitude)));
+
+      setState(() {});
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentLocation();
+    getPolyPoints();
+    setCustomMarkerIcon();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-        initialCameraPosition: CameraPosition(target: _cGooglePlex,zoom: 13),
-        markers: {Marker(markerId: MarkerId("_currentLocation"),
-        icon: BitmapDescriptor.defaultMarker,position: _cGooglePlex),
-        Marker(markerId: MarkerId("_sourceLocation"),
-        icon: BitmapDescriptor.defaultMarker,position: _dGooglePlex)},        
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: const Text('To the lake!',style:TextStyle(color: Colors.white),),
-        icon: const Icon(Icons.directions_boat),
-      ),
+      body: currentLocation == null
+          ? const Center(
+              child: Text("Loading"),
+            )
+          : GoogleMap(
+              initialCameraPosition: CameraPosition(
+                  target: LatLng(
+                      currentLocation!.latitude!, currentLocation!.longitude!),
+                  zoom: 14.5),
+              polylines: {
+                Polyline(
+                    polylineId: PolylineId("route"),
+                    points: polylineCoordinates,
+                    color: Colors.green,
+                    width: 6)
+              },
+              markers: {
+                Marker(
+                    markerId: MarkerId("currentLocation"),
+                    icon: currentLocationIcon,
+                    position: LatLng(currentLocation!.latitude!,
+                        currentLocation!.longitude!)),
+                Marker(
+                    markerId: MarkerId("source"),
+                    icon: sourceIcon,
+                    position: sourceLocation),
+                Marker(
+                    markerId: MarkerId("destination"),
+                    icon: destinationIcon,
+                    position: destination)
+              },
+              onMapCreated: (mapController) {
+                controller.complete(mapController);
+              },
+            ),
     );
-  }
-
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }
 }

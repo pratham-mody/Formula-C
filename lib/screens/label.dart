@@ -1,104 +1,90 @@
-import 'dart:async';
 
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class Label extends StatefulWidget {
-  const Label({Key? key}) : super(key: key);
-
+class MapScreen extends StatefulWidget {
   @override
-  State<Label> createState() => LabelState();
+  _MapScreenState createState() => _MapScreenState();
 }
 
-class LabelState extends State<Label> {
-  static const LatLng _cGooglePlex =
-      LatLng(19.197755078634067, 72.82720375205461);
-  static const LatLng _dGooglePlex =
-      LatLng(19.211443071971722, 72.84050548089076);
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
-  // 19.197755078634067, 72.82720375205461
-  // static const CameraPosition _kGooglePlex = CameraPosition(
-  //   target: LatLng(19.197755078634067, 72.82720375205461),
-  //   zoom: 14.4746,
-  // );
+class _MapScreenState extends State<MapScreen> {
+  late GoogleMapController mapController;
+  double _originLatitude = 6.5212402, _originLongitude = 3.3679965;
+  double _destLatitude = 6.849660, _destLongitude = 3.648190;
+  // double _originLatitude = 26.48424, _originLongitude = 50.04551;
+  // double _destLatitude = 26.46423, _destLongitude = 50.06358;
+  Map<MarkerId, Marker> markers = {};
+  Map<PolylineId, Polyline> polylines = {};
+  List<LatLng> polylineCoordinates = [];
+  PolylinePoints polylinePoints = PolylinePoints();
+  String googleAPiKey = "AIzaSyAZ6My-DMfYoz08vt3U-VFdqyBIW3-rL3c";
 
-  static const CameraPosition _kLake = CameraPosition(
-    bearing: 192.8334901395799,
-    target: LatLng(19.197755078634067, 72.82720375205461),
-    tilt: 59.440717697143555,
-    zoom: 19.151926040649414,
-  );
-  TextEditingController _startLocationController = TextEditingController();
-  TextEditingController _endLocationController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+
+    /// origin marker
+    _addMarker(LatLng(_originLatitude, _originLongitude), "origin",
+        BitmapDescriptor.defaultMarker);
+
+    /// destination marker
+    _addMarker(LatLng(_destLatitude, _destLongitude), "destination",
+        BitmapDescriptor.defaultMarkerWithHue(90));
+    _getPolyline();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GoogleMap(
-        initialCameraPosition: CameraPosition(target: _cGooglePlex, zoom: 13),
-        markers: {
-          Marker(
-              markerId: MarkerId("_currentLocation"),
-              icon: BitmapDescriptor.defaultMarker,
-              position: _cGooglePlex),
-          Marker(
-              markerId: MarkerId("_sourceLocation"),
-              icon: BitmapDescriptor.defaultMarker,
-              position: _dGooglePlex)
-        },
-      ),
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: _goToTheLake,
-      //   label: const Text(
-      //     'To the lake!',
-      //     style: TextStyle(color: Colors.white),
-      //   ),
-      //   icon: const Icon(Icons.directions_boat),
-      // ),
-      bottomNavigationBar: BottomAppBar(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  controller: _startLocationController,
-                  decoration: InputDecoration(
-                    labelText: 'Start Location',
-                    suffixIcon: Icon(Icons.location_on),
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-              ),
-              SizedBox(width: 16.0),
-              Expanded(
-                child: TextField(
-                  controller: _endLocationController,
-                  decoration: InputDecoration(
-                    labelText: 'End Location',
-                    suffixIcon: Icon(Icons.location_on),
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-              ),
-              SizedBox(width: 16.0),
-              IconButton(
-                onPressed: () {
-                  // Implement action for the button
-                },
-                icon: Icon(Icons.search),
-                color: Colors.blue,
-              ),
-            ],
-          ),
-        ),
-      ),
+    return SafeArea(
+      child: Scaffold(
+          body: GoogleMap(
+        initialCameraPosition: CameraPosition(
+            target: LatLng(_originLatitude, _originLongitude), zoom: 15),
+        myLocationEnabled: true,
+        tiltGesturesEnabled: true,
+        compassEnabled: true,
+        scrollGesturesEnabled: true,
+        zoomGesturesEnabled: true,
+        onMapCreated: _onMapCreated,
+        markers: Set<Marker>.of(markers.values),
+        polylines: Set<Polyline>.of(polylines.values),
+      )),
     );
   }
 
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+  void _onMapCreated(GoogleMapController controller) async {
+    mapController = controller;
+  }
+
+  _addMarker(LatLng position, String id, BitmapDescriptor descriptor) {
+    MarkerId markerId = MarkerId(id);
+    Marker marker =
+        Marker(markerId: markerId, icon: descriptor, position: position);
+    markers[markerId] = marker;
+  }
+
+  _addPolyLine() {
+    PolylineId id = PolylineId("poly");
+    Polyline polyline = Polyline(
+        polylineId: id, color: Colors.red, points: polylineCoordinates);
+    polylines[id] = polyline;
+    setState(() {});
+  }
+
+  _getPolyline() async {
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+        googleAPiKey,
+        PointLatLng(_originLatitude, _originLongitude),
+        PointLatLng(_destLatitude, _destLongitude),
+        travelMode: TravelMode.driving,
+        wayPoints: [PolylineWayPoint(location: "Sabo, Yaba Lagos Nigeria")]);
+    if (result.points.isNotEmpty) {
+      result.points.forEach((PointLatLng point) {
+        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      });
+    }
+    _addPolyLine();
   }
 }

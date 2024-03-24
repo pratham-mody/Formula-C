@@ -26,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
   ];
   List pages = [
     Home(),
-    Label(),
+    MapScreen(),
     ReviewPage(),
     // Notifications(key: UniqueKey(),),
     Profile(key: UniqueKey(),),
