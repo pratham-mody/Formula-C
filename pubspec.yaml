@@ -14,12 +14,13 @@ description: A new Flutter application.
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.17.0 <3.0.0'
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   cupertino_icons: ^1.0.6
   flutter:
     sdk: flutter
+  flutter_card_swiper: ^7.0.0
   flutter_config: ^2.0.2
   flutter_polyline_points: ^1.0.0
   flutter_svg: ^2.0.4
@@ -27,6 +28,7 @@ dependencies:
   google_maps_flutter: ^2.1.7
   ionicons: ^0.2.2
   shared_preferences: ^2.2.2
+  swipe_cards: ^2.0.0+1
   syncfusion_flutter_gauges: ^25.1.35
 dev_dependencies:
   flutter_test:

@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
                 style: TextStyle(color: Colors.white),
               ),
               SizedBox(width: 8),
-              Text(_username),
+              // Text(_username),
             ],
           ),
           leading: IconButton(
@@ -70,7 +70,7 @@ class _HomeState extends State<Home> {
               SizedBox(
                 height: 30,
               ),
-              pools(),
+              Pools(),
               SizedBox(height: 10.0),
               buildAchievementsRow('Achievements', context),
               SizedBox(height: 10.0),
@@ -202,49 +202,63 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-class pools extends StatelessWidget {
-  const pools({
-    super.key,
-  });
+class Pools extends StatelessWidget {
+  const Pools({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.green), // Border color
-        borderRadius: BorderRadius.circular(8), // Rounded corners
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Column(
-            children: [
-              Icon(Icons.directions_car), // Car icon
-              SizedBox(height: 5),
-              Text('My Car'), // Text below the car icon
-            ],
+    return Stack(
+      children: [
+        Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.green), // Border color
+            borderRadius: BorderRadius.circular(8), // Rounded corners
           ),
-          VerticalDivider(), // Divider line
-          Column(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Row(
+              Column(
                 children: [
-                  Container(
-                    height: 30,
-                    width: 30,
-                    child: Icon(Icons.directions_car), // Car icon
-                  ),
-                  SizedBox(width: 5),
-                  Text('Ride Along'), // Text beside the car icon
+                  Icon(Icons.directions_car), // Car icon
+                  SizedBox(height: 5),
+                  Text('My Car'), // Text below the car icon
                 ],
               ),
-              SizedBox(height: 5),
+              VerticalDivider(), // Divider line
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        height: 30,
+                        width: 30,
+                        child: Icon(Icons.directions_car), // Car icon
+                      ),
+                      SizedBox(width: 5),
+                      Text('Ride Along'), // Text beside the car icon
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                ],
+              ),
             ],
           ),
-        ],
-      ),
+        ),
+        Positioned(
+          top: -20, // Adjust this value to position the title
+          left: 10, // Adjust this value to position the title
+          child: Text(
+            'My Car',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -297,27 +311,24 @@ class Savings extends StatelessWidget {
                 child: Column( // Changed Row to Column
                   children: [
                     Container(
-                      height: 65,
-                      width: 300,
-                      child: CircleIndicator(),
+                      height: 35,
+                      width: 200,
+                      // child: CircleIndicator(),
                     ),
-                    Text(
-                      '70', // Your price value here
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
+                    Center(
+                      child: Text(
+                        '70', // Your price value here
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 20), // Adding some space between the circle and the text
+            SizedBox(height: 10), // Adding some space between the circle and the text
             Text(
               'Emissions',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10), // Adding some spacing between the text and the next column
-            Text(
-              'Money Saved',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
             ),
           ],
         ),
