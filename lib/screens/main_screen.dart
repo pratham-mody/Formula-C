@@ -27,11 +27,7 @@ class _MainScreenState extends State<MainScreen> {
     Home(),
     MapsScreen(),
     ReviewPage(),
-    // Notifications(key: UniqueKey(),),
-    // Label(),
-    Add(key: UniqueKey(),),
-    Notifications(key: UniqueKey(),),
-    Profile(key: UniqueKey(),),
+    Profile(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -46,13 +42,11 @@ class _MainScreenState extends State<MainScreen> {
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            // SizedBox(width: 7),
+          children: <Widget>[           
             buildTabIcon(0),
             buildTabIcon(1),
             buildTabIcon(2),
             buildTabIcon(3),
-            // SizedBox(width: 7),
           ],
         ),
         color: Theme.of(context).primaryColor,

@@ -295,11 +295,10 @@ class Savings extends StatelessWidget {
               ),
               child: Center(
                 child: Column( // Changed Row to Column
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      height: 100,
-                      width: 100,
+                      height: 65,
+                      width: 300,
                       child: CircleIndicator(),
                     ),
                     Text(
@@ -310,7 +309,7 @@ class Savings extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 10), // Adding some space between the circle and the text
+            SizedBox(height: 20), // Adding some space between the circle and the text
             Text(
               'Emissions',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),

@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-//import 'package:foodtruck/core/constants/constants.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
+import 'package:geolocator/geolocator.dart';
 
 class MapsScreen extends StatefulWidget {
   const MapsScreen({Key? key}) : super(key: key);
@@ -16,59 +14,47 @@ class MapsScreen extends StatefulWidget {
 class _MapsScreenState extends State<MapsScreen> {
   final Completer<GoogleMapController> controller = Completer();
 
-  static const LatLng sourceLocation = LatLng(37.33500926, -122.03272188);
-  static const LatLng destination = LatLng(37.33429383, -122.06600055);
+  static const LatLng sourceLocation =
+      LatLng(19.2135, 72.8408);
+  static const LatLng destination =
+      LatLng(19.2063, 72.8746);
 
   List<LatLng> polylineCoordinates = [];
-  LocationData? currentLocation;
+  Position? currentLocation;
 
   BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor currentLocationIcon = BitmapDescriptor.defaultMarker;
 
-  get primaryColor => null;
+  String google_api_key = "AIzaSyAK7YNv6ksviRCetiOFUZvdIWyAAg4R26w";
 
-  void getCurrentLocation() async {
-    Location location = Location();
+  Future<void> setCustomMarkerIcon() async {
+    final double iconSize = 20;
+    final sourceIconBitmap = await BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(size: Size(2, 20)),
+      "assets/source.png",
+    );
+    final destinationIconBitmap = await BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(size: Size(20, 20)),
+      "assets/destination.png",
+    );
+    final truckIconBitmap = await BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(size: Size(20, 20)),
+      "assets/truck.png",
+    );
 
-    location.getLocation().then((location) {
-      currentLocation = location;
-    });
-    GoogleMapController googleMapController = (await controller.future);
-    location.onLocationChanged.listen((event) {
-      currentLocation = event;
-      googleMapController.animateCamera(CameraUpdate.newCameraPosition(
-          CameraPosition(
-              zoom: 13.5, target: LatLng(event.latitude!, event.longitude!))));
-      setState(() {});
-    });
-  }
-
-  void setCustomMarkerIcon() {
-    BitmapDescriptor.fromAssetImage(
-            ImageConfiguration.empty, "assets/images/source.png")
-        .then((icon) {
-      sourceIcon = icon;
-    });
-    BitmapDescriptor.fromAssetImage(
-            ImageConfiguration.empty, "assets/images/destination.png")
-        .then((icon) {
-      destinationIcon = icon;
-    });
-    BitmapDescriptor.fromAssetImage(
-            ImageConfiguration.empty, "assets/images/truck.png")
-        .then((icon) {
-      currentLocationIcon = icon;
+    setState(() {
+      sourceIcon = sourceIconBitmap;
+      destinationIcon = destinationIconBitmap;
+      currentLocationIcon = truckIconBitmap;
     });
   }
 
   void getPolyPoints() async {
     PolylinePoints polylinePoints = PolylinePoints();
-    String apiKey = FlutterConfig.get('AIzaSyDnrJUo-gOX1wsMXFudo29KWAPoAvk6Jw8')
-        .toString(); // Correctly access the API key
 
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-        apiKey, // Use the apiKey variable
+        google_api_key,
         PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
         PointLatLng(destination.latitude, destination.longitude));
 
@@ -83,49 +69,60 @@ class _MapsScreenState extends State<MapsScreen> {
   @override
   void initState() {
     super.initState();
-    getCurrentLocation();
+    // getCurrentLocation();
     getPolyPoints();
     setCustomMarkerIcon();
+  }
+
+  void getCurrentLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    setState(() {
+      currentLocation = position;
+    });
+
+    GoogleMapController googleMapController = (await controller.future);
+    googleMapController.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+            zoom: 13.5,
+            target: LatLng(position.latitude, position.longitude))));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: currentLocation == null
-          ? const Center(
-              child: Text("Loading"),
-            )
-          : GoogleMap(
-              initialCameraPosition: CameraPosition(
-                  target: LatLng(
-                      currentLocation!.latitude!, currentLocation!.longitude!),
-                  zoom: 14.5),
-              polylines: {
-                Polyline(
-                    polylineId: PolylineId("route"),
-                    points: polylineCoordinates,
-                    color: primaryColor,
-                    width: 6)
-              },
-              markers: {
-                Marker(
-                    markerId: MarkerId("currentLocation"),
-                    icon: currentLocationIcon,
-                    position: LatLng(currentLocation!.latitude!,
-                        currentLocation!.longitude!)),
-                Marker(
-                    markerId: MarkerId("source"),
-                    icon: sourceIcon,
-                    position: sourceLocation),
-                Marker(
-                    markerId: MarkerId("destination"),
-                    icon: destinationIcon,
-                    position: destination)
-              },
-              onMapCreated: (mapController) {
-                controller.complete(mapController);
-              },
-            ),
+      body: GoogleMap(
+        initialCameraPosition: CameraPosition(
+            target: LatLng(sourceLocation.latitude, sourceLocation.longitude),
+            zoom: 14.5),
+        polylines: {
+          Polyline(
+              polylineId: PolylineId("route"),
+              color: Colors.black,
+              points: polylineCoordinates,
+              width: 3)
+        },
+        markers: {
+          Marker(
+              markerId: MarkerId("currentLocation"),
+              icon: currentLocationIcon,
+              position: LatLng(
+                  currentLocation?.latitude ?? sourceLocation.latitude,
+                  currentLocation?.longitude ?? sourceLocation.longitude)),
+          Marker(
+              markerId: MarkerId("source"),
+              icon: sourceIcon,
+              position: destination),
+          Marker(
+              markerId: MarkerId("destination"),
+              icon: destinationIcon,
+              position: sourceLocation)
+        },
+        onMapCreated: (mapController) {
+          controller.complete(mapController);
+        },
+      ),
     );
   }
 }
